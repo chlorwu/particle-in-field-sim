@@ -273,5 +273,3 @@ function makeTextSprite(message, parameters) {
 
   return sprite;
 }
-
-console.log("change somethign in there literally anything");
