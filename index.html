@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+</head>
+
+<body>
+  <div id="app">
+    <form id="electromagneticfield" onsubmit="submitForm(event)">
+      <input type="number" id="efieldx" placeholder="Enter E_x" />
+      <input type="number" id="efieldy" placeholder="Enter E_y" />
+      <input type="number" id="efieldz" placeholder="Enter E_z" />
+      <input type="number" id="bfieldx" placeholder="Enter B_x" />
+      <input type="number" id="bfieldy" placeholder="Enter B_y" />
+      <input type="number" id="bfieldz" placeholder="Enter B_z" />
+
+      <button id="submitButton" type="submit">Submit</button>
+    </form>
+
+    <p id="errorMessage" style="color: red; display: none;">Please fill out all fields.</p>
+    <p id="outputResponses" ></p>
+    <p id="output" style="display: none;"></p>
+  </div>
+
+  <div id="controls" style="display: none;">
+    <button id="startButton">Start</button>
+    <button id="pauseButton">Pause</button>
+  </div>
+
+
+  <script type="module">
+    import {animate, passInEMValues, startSimulation, pauseSimulation} from './src/main.js';
+
+    
+    // Attach event listeners to start and pause buttons
+    document.getElementById("startButton").addEventListener("click", () => {
+    console.log("Start button clicked");
+    startSimulation();
+    });
+
+    document.getElementById("pauseButton").addEventListener("click", () => {
+    console.log("Pause button clicked");
+    pauseSimulation();
+    });
+
+    // setTimeout(() => {
+    // pauseSimulation();
+    // console.log('Simulation paused');
+    // }, 5000);
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      // Retrieve input values
+      const efieldx = document.getElementById("efieldx").value;
+      const efieldy = document.getElementById("efieldy").value;
+      const efieldz = document.getElementById("efieldz").value;
+      const bfieldx = document.getElementById("bfieldx").value;
+      const bfieldy = document.getElementById("bfieldy").value;
+      const bfieldz = document.getElementById("bfieldz").value;
+      
+      // Validate inputs
+      if (!efieldx || !efieldy || !efieldz || !bfieldx || !bfieldy || !bfieldz) {
+        const errorMessage = document.getElementById("errorMessage");
+        // document.getElementById('errorMessage').style.display = 'block';
+        errorMessage.style.display = "block";
+        return;
+      }
+
+
+      // Hide the form and error message
+      document.getElementById("electromagneticfield").remove();
+      var errorExist=document.getElementById("errorMessage");
+      if (errorExist != null) {
+        errorExist.remove();
+      }
+      console.log(efieldx, efieldy, efieldz, bfieldx, bfieldy, bfieldz);
+
+      // Show start and pause buttons
+      document.getElementById("controls").style.display = "block";
+
+      // Show results
+      var outputString = `E_x: ${efieldx}, E_y: ${efieldy}, E_z: ${efieldz}, B_x: ${bfieldx}, B_y: ${bfieldy}, B_z: ${bfieldz}`;
+      console.log("here");
+      var result = document.getElementById("outputResponses");
+      document.getElementById("outputResponses").innerHTML = outputString;
+      console.log(result);
+      console.log(efieldx, efieldy, efieldz, bfieldx, bfieldy, bfieldz);
+
+      passInEMValues([efieldx, efieldy, efieldz, bfieldx, bfieldy, bfieldz]);
+      //animate([efieldx, efieldy, efieldz, bfieldx, bfieldy, bfieldz]);
+      }
+      window.submitForm = submitForm;
+    </script>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
