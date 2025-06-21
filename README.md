@@ -2,7 +2,7 @@ HOW TO OPERATE:
 1. Input things into the field first, the graph doesn't show up unless you do.
 2. Scroll to zoom in/out. Drag to rotate field.
 3. You must click "start" for the particle to start moving. The particle accelerates pretty fast, so it'll move out of screen after a few steps unless you can catch up by zooming out.
-4. The particle's mass + charge are hard-coded but really didn't have to be. They could've been user-inputtable too.
+4. The particle's mass + charge are hard-coded but really didn't have to be. I got lazy. 
 
 CHLOE'S NOTES:
 1. *blood, sweat, tears*
